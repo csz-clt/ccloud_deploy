@@ -72,6 +72,12 @@ server {
           proxy_set_header Upgrade $http_upgrade;
           proxy_set_header Connection "upgrade";
     }
+	# 邮件重置密码页面
+	location ~ /wp-json/resetPasswordHtml {
+        add_header 'Set-Cookie' 'ResetPasswordToken=$args; path=/; Max-Age=300' always;
+        return 302 http://$host;
+	}
+
     #http接口
     location ~ /wp-json {
           add_header 'Access-Control-Allow-Credentials' 'true';

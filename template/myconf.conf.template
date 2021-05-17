@@ -23,6 +23,11 @@ server {
         root /var/www/html;
         try_files $uri $uri/ /index.html;
     }
+  # 邮件重置密码页面
+  location ~ /wp-json/resetPasswordHtml {
+        add_header 'Set-Cookie' 'ResetPasswordToken=$args; path=/; Max-Age=300' always;
+        return 302 http://$host;
+  }
 
   location ~ /wp-json {
         proxy_set_header host $host:$server_port;
